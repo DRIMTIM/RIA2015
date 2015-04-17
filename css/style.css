@@ -1,0 +1,53 @@
+body{
+	text-align: center;
+}
+header{
+	height: 10%;
+}
+footer{
+	clear: both;
+	background: aqua;
+}
+.panel{
+	margin-bottom: 0%;
+}
+.form{
+	width: 60%;
+	margin: 5% 20% 5% 20%;
+}
+.nombreUsuario{
+	float: left;
+	margin-left: 20%;
+	margin-top: 5%;
+}
+.login{
+	padding: 5% 10% 5% 10%;
+}
+.ingreso{
+	text-align: left;
+	padding: 5% 10% 5% 10%;
+}
+.imagen{
+	width: 30%;
+	height: 30%;
+	min-height:120pt;
+	min-width:120pt;
+	text-align: center;
+}
+.imagenBuscar{
+	margin-top: 5%;
+	width: 50%;
+}
+textarea {
+	resize:none;
+}
+.nav-tabs{
+	border-bottom: none;
+}
+#miniatura{
+	width: 30%;
+	height: 30%;
+	min-height:120pt;
+	min-width:120pt;
+	text-align: center;
+}
