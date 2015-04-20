@@ -1,76 +1,95 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<script type="text/javascript" src="js/jquery-2.1.3.min.js"></script>
-<script type="text/javascript" src="js/bootstrap.min.js"></script>
-<script type="text/javascript" src="js/bootstrap-select.js"></script>
-<link rel="stylesheet" href="css/bootstrap.min.css">
-<link rel="stylesheet" href="css/bootstrap-select.min.css">
-<link rel="stylesheet" href="css/style.css">
-<title>RIA LAB</title>
+	<meta charset="UTF-8">
+	<script src="js/image-container.js"></script>
+	<script src="js/jquery-2.1.3.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/bootstrap-select.js"></script>
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/bootstrap-select.min.css">
+	<link rel="stylesheet" href="css/style.css">
+	<title>Login Obligatorio RIA</title>
 </head>
 <body>
 	<header>
-		<br/><br/><br/>
-		<h1>
-			Laboratorio 1<small> de </small>RIA
-		</h1>
+		<nav id="header_nav" class="navbar navbar-default">
+			<ul class="nav nav-tabs">
+				<li role="presentation" class="dropdown">
+					<a href="#">Home</a>
+				</li>
+				<li id="ver_lista" role="presentation" class="dropdown">
+					<a href="#">Agregar Imagen</a>
+				</li>
+				<li class="nav pull-right" id="login_li">
+					<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
+						Logearse <span class="caret"></span>
+					</a>
+					<ul class="dropdown-menu" role="menu">
+						<form class="navbar-form navbar-left" role="search">
+							<div class="form-group">
+								<input type="text" id="user_input" class="form-control" placeholder="User">
+							</div>
+							<div class="form-group">
+								<input type="password" class="form-control" placeholder="Password">
+							</div>
+							<br></br>
+							<button type="submit" id="submit_login" class="btn btn-primary center-block">Submit</button>
+						</form>
+					</ul>
+				</li>
+			</ul>
+		</nav>
 	</header>
-	<section class="form">
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<h3 class="panel-title">Login RIA LAB</h3>
+	
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h3 class="panel-title">Lista de imágenes</h3>
+		</div>
+		<div id="main-container" class="panel-body">
+
+		</div>
+	</div>
+
+	<div id="myModal" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="modal-titulo"></h4>
+				</div>
+				<div class="modal-body" id="modal-cuerpo">
+					
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
 			</div>
-			<form action="usuarios/ingresar.html" method="get" onsubmit="verificarSoporteArchivos();">
-				<div class="panel-body login">
-					<div class="panel panel-info">
-						<div class="panel-heading">
-							<h3 class="panel-title">Aviso</h3>
-						</div>
-						<div class="panel-body">
-							El usuario debe tener al menos 4 carácteres de largo.
-						</div>
-					</div>
-					<br>
-					<div class="input-group">
-						<span class="input-group-addon" id="basic-addon2">Nombre de Usuario: </span>
-						<input type="text" class="form-control"
-							placeholder="Nombre de Usuario" aria-describedby="basic-addon2"
-							onkeyup="verificarDatos(this);" name="nombreUsuario" id="nombreUsuario">
-					</div>
-				</div>
-				<div class="panel-footer">
-					<input type="hidden" value="INGRESAR" name="ingresar">
-					<button id="botonLogin" disabled="disabled" type="submit"
-						class="btn btn-default">Login</button>
-				</div>
-			</form>
 		</div>
-	</section>
-	<footer class="footer">
-		<div class="navbar navbar-inverse navbar-fixed-bottom"
-			role="navigation">
-			<br>LABORATORIO DE APLICACIONES DE INTERNET RICAS
-		</div>
-	</footer>
+	</div>
 </body>
-<script type="text/javascript">
-	function verificarDatos(input) {
-		var content = input.value;
-		if (content.length >= 4) {
-			$("#botonLogin").prop('disabled', false);
-		} else {
-			$("#botonLogin").prop('disabled', true);
-		}
-	}
-	function verificarSoporteArchivos(){
-		if (window.File && window.FileReader && window.FileList && window.Blob) {
-			return true;
-		} else {
-		  alert('Las APIs de manejos de archivos no estan soportadas por el navegador.');
-			return false;
-		}
-	}
+
+<script>
+	$(document).ready(function(){
+
+		$('#submit_login').click(function(event) {
+			var userName=$('#user_input').val();
+			var login = $('#login_li');
+			var text = 'Hola, '+userName;
+			login.empty();
+			login.append('<a>'+text+'</a>')
+
+		});
+
+		$('.dropdown-menu').find('form').click(function (e) {
+			e.stopPropagation();
+		});
+
+		imageContainer.printAllHelpers($('#main-container'));
+	});
+
+
+
 </script>
+
 </html>
