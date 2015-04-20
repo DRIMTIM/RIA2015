@@ -1,62 +1,76 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Laboratorio 1 - RIA 2015</title>
-	<meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="css/estilo.css">
+<meta charset="UTF-8">
+<script type="text/javascript" src="js/jquery-2.1.3.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/bootstrap-select.js"></script>
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/bootstrap-select.min.css">
+<link rel="stylesheet" href="css/style.css">
+<title>RIA LAB</title>
 </head>
 <body>
-
-	<header class="page-header">
+	<header>
+		<br/><br/><br/>
 		<h1>
-			Laboratorio 1 - RIA 2015
+			Laboratorio 1<small> de </small>RIA
 		</h1>
 	</header>
-
-	<section class="loginSection">
-		<div class="panel panel-primary">
+	<section class="form">
+		<div class="panel panel-default">
 			<div class="panel-heading">
-				<h3 class="panel-title">Ingrese a RIA_LAB_1</h3>
+				<h3 class="panel-title">Login RIA LAB</h3>
 			</div>
-			<form id="loginForm" action="usuarios/ingresar.html" method="POST">
-
-				<div class="panel-body loginForm">
-					<div class="input-group">
-						<span class="input-group-addon" id="nomUsu">Nombre de Usuario: </span>
-						<input type="text" class="form-control" id="nombreUsu" name="nombreUsu" 
-						placeholder="Nombre de Usuario" aria-describedby="nomUsu">
+			<form action="usuarios/ingresar.html" method="get" onsubmit="verificarSoporteArchivos();">
+				<div class="panel-body login">
+					<div class="panel panel-info">
+						<div class="panel-heading">
+							<h3 class="panel-title">Aviso</h3>
+						</div>
+						<div class="panel-body">
+							El usuario debe tener al menos 4 carácteres de largo.
+						</div>
 					</div>
 					<br>
-					<span class="glyphicon glyphicon-info-sign help-block">
-						El nombre debe contener por lo menos 4 caracteres de largo...
-					</span>
+					<div class="input-group">
+						<span class="input-group-addon" id="basic-addon2">Nombre de Usuario: </span>
+						<input type="text" class="form-control"
+							placeholder="Nombre de Usuario" aria-describedby="basic-addon2"
+							onkeyup="verificarDatos(this);" name="nombreUsuario" id="nombreUsuario">
+					</div>
 				</div>
 				<div class="panel-footer">
-
-					<button id="botonLogin" type="submit" class="btn btn-primary">
-						<span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;Ingresar!
-					</button>
-
+					<input type="hidden" value="INGRESAR" name="ingresar">
+					<button id="botonLogin" disabled="disabled" type="submit"
+						class="btn btn-default">Login</button>
 				</div>
-
 			</form>
 		</div>
 	</section>
-
 	<footer class="footer">
-		<div class="navbar navbar-inverse navbar-fixed-bottom" role="navigation">
-			<div class="glyphicon">
-				<strong>Laboratorio 1 - RIA - 2015</strong>
-			</div><br>
-			<span><span class="glyphicon glyphicon-envelope"><strong>&nbsp;drimtim@gmail.com</strong></span>&nbsp;
-			<img class="imagen" src="images/logotipoMin.png" alt="DRIMTIM!">
-           	<span><span class="glyphicon glyphicon-globe"><strong>&nbsp;www.drimtim.com</strong></span>&nbsp;			
+		<div class="navbar navbar-inverse navbar-fixed-bottom"
+			role="navigation">
+			<br>LABORATORIO DE APLICACIONES DE INTERNET RICAS
 		</div>
-	</footer>	
-
+	</footer>
 </body>
+<script type="text/javascript">
+	function verificarDatos(input) {
+		var content = input.value;
+		if (content.length >= 4) {
+			$("#botonLogin").prop('disabled', false);
+		} else {
+			$("#botonLogin").prop('disabled', true);
+		}
+	}
+	function verificarSoporteArchivos(){
+		if (window.File && window.FileReader && window.FileList && window.Blob) {
+			return true;
+		} else {
+		  alert('Las APIs de manejos de archivos no estan soportadas por el navegador.');
+			return false;
+		}
+	}
+</script>
 </html>
