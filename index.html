@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Laboratorio 1 - RIA 2015</title>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/estilo.css">
+</head>
+<body>
+
+	<header class="page-header">
+		<h1>
+			Laboratorio 1 - RIA 2015
+		</h1>
+	</header>
+
+	<section class="loginSection">
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h3 class="panel-title">Ingrese a RIA_LAB_1</h3>
+			</div>
+			<form action="usuarios/ingresar.html" method="POST">
+
+				<div class="panel-body loginForm">
+					<div class="input-group">
+						<span class="input-group-addon" id="nomUsu">Nombre de Usuario: </span>
+						<input type="text" class="form-control" id="nombreUsu" name="nombreUsu" 
+						placeholder="Nombre de Usuario" aria-describedby="nomUsu">
+					</div>
+					<br>
+					<span class="glyphicon glyphicon-info-sign help-block">
+						El nombre debe contener por lo menos 4 caracteres de largo...
+					</span>
+				</div>
+				<div class="panel-footer">
+
+					<button id="botonLogin" type="submit" class="btn btn-primary">
+						<span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;Ingresar!
+					</button>
+
+				</div>
+
+			</form>
+		</div>
+	</section>
+
+	<footer class="footer">
+		<div class="navbar navbar-inverse navbar-fixed-bottom" role="navigation">
+			<div class="glyphicon">
+				<strong>Laboratorio 1 - RIA - 2015</strong>
+			</div><br>
+			<span><span class="glyphicon glyphicon-envelope"><strong>&nbsp;drimtim@gmail.com</strong></span>&nbsp;
+			<img class="imagen" src="images/logotipoMin.png" alt="DRIMTIM!">
+           	<span><span class="glyphicon glyphicon-globe"><strong>&nbsp;www.drimtim.com</strong></span>&nbsp;			
+		</div>
+	</footer>	
+
+</body>
+</html>
