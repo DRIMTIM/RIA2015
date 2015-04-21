@@ -5,9 +5,8 @@
 <script type="text/javascript" src="../js/jquery-2.1.3.min.js"></script>
 <script type="text/javascript" src="../js/bootstrap.min.js"></script>
 <script type="text/javascript" src="../js/bootstrap-select.js"></script>
-<script type="text/javascript" src="../js/bootstrap-filestyle.min.js">
-	
-</script>
+<script type="text/javascript" src="../js/bootstrap-filestyle.min.js"></script>
+<script type="text/javascript" src="../js/bootbox.min.js"></script>
 <link rel="stylesheet" href="../css/bootstrap.min.css">
 <link rel="stylesheet" href="../css/bootstrap-select.min.css">
 <link rel="stylesheet" href="../css/style.css">
@@ -44,7 +43,7 @@
 						<img id="miniatura" src="..." alt="Imágen" name="imagenUsuario">
 					</div>
 					<div class="imagenBuscar">
-						<input type="file" class="filestyle" data-buttonName="btn-primary"
+						<input id="archivoImagen" type="file" class="filestyle" data-buttonName="btn-primary"
 							data-buttonText="Cargar Imagen ..."
 							data-iconName="glyphicon-inbox" data-buttonBefore="true"
 							onchange="cargarImagen(event);">
@@ -52,7 +51,7 @@
 					<br />
 					<div class="input-group">
 						<span class="input-group-addon" id="basic-addon1">Titulo: </span>
-						<input type="text" class="form-control"
+						<input id="tituloImagen" type="text" class="form-control"
 							placeholder="Ingrese el título de la imágen..."
 							aria-describedby="basic-addon1" name="tituloImagen">
 					</div>
@@ -60,13 +59,13 @@
 					<div class="input-group">
 						<span class="input-group-addon" id="basic-addon1">Descripción:
 						</span>
-						<textarea class="form-control"
+						<textarea id="descripcionImagen" class="form-control"
 							placeholder="Ingrese una descripción de la imágen..."
 							aria-describedby="basic-addon1" name="descripcionImagen"></textarea>
 					</div>
 				</div>
 				<div class="panel-footer">
-					<button id="botonLogin" type="submit" class="btn btn-primary">Agregar Imágen</button>
+					<button id="botonLogin" type="button" class="btn btn-primary" onclick="guardarImagen();">Agregar Imágen</button>
 				</div>
 			</div>
 		</div>
@@ -76,114 +75,22 @@
 					<h3 class="panel-title">Ver Imágenes</h3>
 				</div>
 				<div class="panel-body ingreso">
-					<div class="row">
-						<div class="col-sm-6 col-md-4">
-							<div class="thumbnail">
-								<img src="../images/LOGO.png" alt="IMAGEN">
-								<div class="caption">
-									<h3>Titulo</h3>
-									<p>Descripcion</p>
-								</div>
+					<div id="contenedorImagenes" class="row"></div>
+					<div id="imagenDeMuestra_" hidden="hidden" class="col-sm-6 col-md-4">
+						<div class="thumbnail">
+							<img id="imagenDeMuestra_archivo_" src="../images/LOGO.png" alt="IMAGEN">
+							<div class="caption">
+								<h3 id="imagenDeMuestra_titulo_">Titulo</h3>
+								<p id="imagenDeMuestra_descripcion_">Descripcion</p>
 							</div>
 						</div>
-						<div class="col-sm-6 col-md-4">
-							<div class="thumbnail">
-								<img src="../images/LOGO.png" alt="IMAGEN">
-								<div class="caption">
-									<h3>Titulo</h3>
-									<p>Descripcion</p>
-								</div>
-							</div>
+					</div>
+					<div id="sinImagenes" hidden="hidden" class="panel panel-info">
+						<div class="panel-heading">
+							<h3 class="panel-title">Aviso</h3>
 						</div>
-						<div class="col-sm-6 col-md-4">
-							<div class="thumbnail">
-								<img src="../images/LOGO.png" alt="IMAGEN">
-								<div class="caption">
-									<h3>Titulo</h3>
-									<p>Descripcion</p>
-								</div>
-							</div>
-						</div>
-						<div class="col-sm-6 col-md-4">
-							<div class="thumbnail">
-								<img src="../images/LOGO.png" alt="IMAGEN">
-								<div class="caption">
-									<h3>Titulo</h3>
-									<p>Descripcion</p>
-								</div>
-							</div>
-						</div>
-						<div class="col-sm-6 col-md-4">
-							<div class="thumbnail">
-								<img src="../images/LOGO.png" alt="IMAGEN">
-								<div class="caption">
-									<h3>Titulo</h3>
-									<p>Descripcion</p>
-								</div>
-							</div>
-						</div>
-						<div class="col-sm-6 col-md-4">
-							<div class="thumbnail">
-								<img src="../images/LOGO.png" alt="IMAGEN">
-								<div class="caption">
-									<h3>Titulo</h3>
-									<p>Descripcion</p>
-								</div>
-							</div>
-						</div>
-						<div class="col-sm-6 col-md-4">
-							<div class="thumbnail">
-								<img src="../images/LOGO.png" alt="IMAGEN">
-								<div class="caption">
-									<h3>Titulo</h3>
-									<p>Descripcion</p>
-								</div>
-							</div>
-						</div>
-						<div class="col-sm-6 col-md-4">
-							<div class="thumbnail">
-								<img src="../images/LOGO.png" alt="IMAGEN">
-								<div class="caption">
-									<h3>Titulo</h3>
-									<p>Descripcion</p>
-								</div>
-							</div>
-						</div>
-						<div class="col-sm-6 col-md-4">
-							<div class="thumbnail">
-								<img src="../images/LOGO.png" alt="IMAGEN">
-								<div class="caption">
-									<h3>Titulo</h3>
-									<p>Descripcion</p>
-								</div>
-							</div>
-						</div>
-						<div class="col-sm-6 col-md-4">
-							<div class="thumbnail">
-								<img src="../images/LOGO.png" alt="IMAGEN">
-								<div class="caption">
-									<h3>Titulo</h3>
-									<p>Descripcion</p>
-								</div>
-							</div>
-						</div>
-						<div class="col-sm-6 col-md-4">
-							<div class="thumbnail">
-								<img src="../images/LOGO.png" alt="IMAGEN">
-								<div class="caption">
-									<h3>Titulo</h3>
-									<p>Descripcion</p>
-								</div>
-							</div>
-						</div>
-						<div class="col-sm-6 col-md-4">
-							<div class="thumbnail">
-								<img src="../images/LOGO.png" alt="IMAGEN">
-								<div class="caption">
-									<h3>Titulo</h3>
-									<p>Descripcion</p>
-								</div>
-							</div>
+						<div class="panel-body">
+							No hay imagenes cargadas para mostrar.
 						</div>
 					</div>
 				</div>
@@ -197,12 +104,14 @@
 	</footer>
 </body>
 <script type="text/javascript">
+	var imagenCargada = null;
+	var imagenesCargadas = new Array();
+	
 	$(document).ready(function() {
 		var nombreUsuario = getParameterByName("nombreUsuario");
 		var ingresar = getParameterByName("ingresar");
 		$("#nombreUsuario").html(nombreUsuario);
 		mostrarFuncionalidad(ingresar);
-		responsive();
 	});
 	function mostrarFuncionalidad(funcionalidad) {
 		if (funcionalidad == "INGRESAR") {
@@ -215,8 +124,29 @@
 			$("#formVer").show();
 			$("#linkIngresar").attr("class", "");
 			$("#linkVer").attr("class", "active");
+			mostrarImagenesCargadas();
 		}
-
+	}
+	function mostrarImagenesCargadas(){
+		$("#contenedorImagenes").html(null);
+		if(imagenesCargadas.length > 0){
+			$("#sinImagenes").hide();
+			for(var i = 0; i < imagenesCargadas.length; i++){
+				var clone = $("#imagenDeMuestra_").clone();
+				clone.attr("id", "imagenDeMuestra_" + i);
+				clone.find("#imagenDeMuestra_archivo_").attr("id", "imagenDeMuestra_archivo_" + i);
+				clone.find("#imagenDeMuestra_titulo_").attr("id", "imagenDeMuestra_titulo_" + i);
+				clone.find("#imagenDeMuestra_descripcion_").attr("id", "imagenDeMuestra_descripcion_" + i);
+				clone.show();
+				$("#contenedorImagenes").append(clone);
+				
+				$("#imagenDeMuestra_archivo_" + i).attr("src", imagenesCargadas[i].archivo);
+				$("#imagenDeMuestra_titulo_" + i).html(imagenesCargadas[i].titulo);
+				$("#imagenDeMuestra_descripcion_" + i).html(imagenesCargadas[i].descripcion);
+			}
+		}else{
+			$("#sinImagenes").show();
+		}
 	}
 	function getParameterByName(name) {
 		name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
@@ -231,9 +161,76 @@
 			miniatura.title = file.name;
 			reader.onload = function(event) {
 				miniatura.src = event.target.result;
+				imagenCargada = event.target.result;
 			};
 			reader.readAsDataURL(file);
 		}
+	}
+	
+	function mostrarConfirmacion(titulo, mensaje, funcionAceptar){
+		bootbox.dialog({
+		  message: mensaje,
+		  title: titulo,
+		  buttons: {
+		  	cancelar: {
+			  label: "Cancelar",
+		      className: "btn-primary",
+		      callback: function() {}
+	    	},
+	    	aceptar: {
+	    		label: "Aceptar",
+	      		className: "btn-primary",
+	      		callback: function() {
+	        		funcionAceptar();
+	      		}
+	    	}
+		  }
+		});
+	}
+	
+	function mostrarError(mensaje){
+		bootbox.dialog({
+		  message: mensaje,
+		  title: "Error!",
+		  buttons: {
+	    	aceptar: {
+	    		label: "Cerrar",
+	      		className: "btn-primary",
+	      		callback: function() {}
+	    	}
+		  }
+		});
+	}
+	function guardarImagen(){
+		var tituloImagen = $("#tituloImagen").val();
+		var descripcionImagen = $("#descripcionImagen").val();
+		if(imagenCargada != null && imagenCargada != "" && imagenCargada != undefined){
+			if(tituloImagen != null && tituloImagen != "" && tituloImagen != undefined){
+				if(descripcionImagen != null && descripcionImagen != "" && descripcionImagen != undefined){
+					mostrarConfirmacion("Confirmación", "Esta seguro que desea guardar la imagen?", function (){
+						var imagen = new Object();
+						imagen.archivo = imagenCargada;
+						imagen.titulo = tituloImagen;
+						imagen.descripcion = descripcionImagen;
+						imagenesCargadas[imagenesCargadas.length] = imagen;
+						limpiarCampos();
+					});
+				}else{
+					mostrarError("Debe ingresar una descripción!");
+				}
+			}else{
+				mostrarError("Debe ingresar un titulo!");
+			}
+		}else{
+			mostrarError("Debe seleccionar una imagen!");
+		}		
+	}
+	function limpiarCampos(){
+		$("#archivoImagen").val(null);
+		$("#tituloImagen").val(null);
+		$("#descripcionImagen").val(null);
+		$("#miniatura").attr("src", null);
+		$(":file").filestyle('clear');
 	}
 </script>
 </html>
