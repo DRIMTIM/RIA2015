@@ -76,12 +76,13 @@
 				</div>
 				<div class="panel-body ingreso">
 					<div id="contenedorImagenes" class="row"></div>
-					<div id="imagenDeMuestra_" hidden="hidden" class="col-sm-6 col-md-4">
-						<div class="thumbnail">
-							<img id="imagenDeMuestra_archivo_" src="../images/LOGO.png" alt="IMAGEN">
-							<div class="caption">
-								<h3 id="imagenDeMuestra_titulo_">Titulo</h3>
-								<p id="imagenDeMuestra_descripcion_">Descripcion</p>
+						<div id="imagenDeMuestra_" hidden="hidden" class="col-sm-6 col-md-4">
+							<div class="span4">
+								<div class="thumbnail">
+									<img id="imagenDeMuestra_archivo_" src="../images/LOGO.png" alt="IMAGEN">
+									<h3 id="imagenDeMuestra_titulo_">Titulo</h3>
+									<p id="imagenDeMuestra_descripcion_">Descripcion</p>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -110,7 +111,7 @@
 	$(document).ready(function() {
 		var nombreUsuario = getParameterByName("nombreUsuario");
 		var ingresar = getParameterByName("ingresar");
-		$("#nombreUsuario").html(nombreUsuario);
+		$("#nombreUsuario").html("Bienvenido " + nombreUsuario);
 		mostrarFuncionalidad(ingresar);
 	});
 	function mostrarFuncionalidad(funcionalidad) {
@@ -132,6 +133,9 @@
 		if(imagenesCargadas.length > 0){
 			$("#sinImagenes").hide();
 			for(var i = 0; i < imagenesCargadas.length; i++){
+				var titulo = imagenesCargadas[i].titulo;
+				var imagen = imagenesCargadas[i].archivo;
+				var descripcion = imagenesCargadas[i].descripcion;
 				var clone = $("#imagenDeMuestra_").clone();
 				clone.attr("id", "imagenDeMuestra_" + i);
 				clone.find("#imagenDeMuestra_archivo_").attr("id", "imagenDeMuestra_archivo_" + i);
@@ -139,10 +143,10 @@
 				clone.find("#imagenDeMuestra_descripcion_").attr("id", "imagenDeMuestra_descripcion_" + i);
 				clone.show();
 				$("#contenedorImagenes").append(clone);
-				
-				$("#imagenDeMuestra_archivo_" + i).attr("src", imagenesCargadas[i].archivo);
-				$("#imagenDeMuestra_titulo_" + i).html(imagenesCargadas[i].titulo);
-				$("#imagenDeMuestra_descripcion_" + i).html(imagenesCargadas[i].descripcion);
+				$("#imagenDeMuestra_titulo_" + i).html(titulo);
+				$("#imagenDeMuestra_archivo_" + i).attr("src", imagen);
+				$("#imagenDeMuestra_descripcion_" + i).html(descripcion);				
+				document.getElementById("imagenDeMuestra_" + i).onclick = function(){mostrarImagen(titulo, imagen, descripcion)};
 			}
 		}else{
 			$("#sinImagenes").show();
@@ -187,7 +191,19 @@
 		  }
 		});
 	}
-	
+	function mostrarImagen(titulo, imagen, descripcion){
+		bootbox.dialog({
+		  message: "<div><img src='" + imagen + "' class='imagenDetalle'/><h2>" + descripcion + "</h2></div>",
+		  title: titulo,
+		  buttons: {
+	    	aceptar: {
+	    		label: "Cerrar",
+	      		className: "btn-primary",
+	      		callback: function() {}
+	    	}
+		  }
+		});
+	}
 	function mostrarError(mensaje){
 		bootbox.dialog({
 		  message: mensaje,
