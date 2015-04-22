@@ -33,8 +33,8 @@ function modal(e) {
 				zIndex: 1050,
 				buttonText: {
 					ok: "OK",
-					yes: "Yes",
-					cancel: "Cancel"
+					yes: "Aceptar",
+					cancel: "Cancelar"
 				},
 				template: '<div class="modal-box"><div class="modal-inner"><div class="modal-title"><a class="modal-close-btn"></a></div><div class="modal-text"></div><div class="modal-buttons"></div></div></div>',
 				_classes: {
