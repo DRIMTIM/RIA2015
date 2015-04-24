@@ -42,3 +42,8 @@ footer span, footer strong{
 	margin: 0% 0% 0% 0%;
 }
 
+.glyphicon-chevron-left, .glyphicon-chevron-right{
+
+	color : black;
+
+}

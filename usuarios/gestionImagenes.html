@@ -18,11 +18,15 @@
     <link rel="stylesheet" type="text/css" href="../css/estilo.css">
     <script type="text/javascript" src="../js/data.js"></script>	
 
-	<!-- Shared assets -->
-    <link rel="stylesheet" type="text/css" href="../css/carouselStyle.css">
 	<!--Boostrap-->
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 
     <!-- Bootstrap FileStyle -->
 	<script type="text/javascript" src="../js/bootstrap-select.js"></script>
@@ -123,71 +127,38 @@
 			
 		</div>
 
-		<!--<div id="formVer">
-			<div class="panel panel-primary">
-				<div class="panel-heading">
-					<h3 class="panel-title">Ver Imágenes</h3>
-				</div>
-
-				<div class="text-info">
-					<h4 id="titulo">Titulo...</h4>
-				</div>				
-
-		        <div class="wrapper">
-
-		            <div class="jcarousel-wrapper">
-		                <div class="jcarousel">
-		                    <ul id="listaImg">
-		                        <!--<li style="background: url('../images/paisajes/01.jpg');"></li>
-		                        <li style="background: url('../images/paisajes/02.jpg');"></li>
-		                        <li style="background: url('../images/paisajes/03.jpg');"></li>
-		                        <li style="background: url('../images/paisajes/04.jpg');"></li>
-		                        <li style="background: url('../images/paisajes/05.jpg');"></li>
-		                    </ul>
-		                </div>
-
-		                <p class="photo-credits">
-		                    Photos by <a href="http://www.mw-fotografie.de">Marc Wiegelmann</a>
-		                </p>
-
-		                <a href="#" id="prev" class="jcarousel-control-prev">&lsaquo;</a>
-		                <a href="#" id="next" class="jcarousel-control-next">&rsaquo;</a>
-		            </div>
-
-		        </div>		
-
-		        <div class="text-info">
-					<BLOCKQUOTE id="desc" >Descripcion...</BLOCKQUOTE>
-				</div>
-
-			</div>
-		</div>-->
-
 		<div id="formVer">
 			<div class="panel panel-primary">
 				<div class="panel-heading">
 					<h3 class="panel-title">Ver Imágenes</h3>
 				</div>
 				<div class="panel-body ingreso">
-					  <div id="myCarousel" class="carousel slide" data-ride="carousel">
+
+					<div id="sinImagenes" hidden="hidden" class="panel panel-info">
+						<div class="panel-heading">
+							<h3 class="panel-title">Aviso</h3>
+						</div>
+						<div class="panel-body">
+							No hay imagenes cargadas para mostrar.
+						</div>
+					</div>
+
+					<div id="myCarousel" class="carousel slide" data-ride="carousel">
 					    <!-- Indicators -->
 					    <ol class="carousel-indicators">
-					      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-					      <li data-target="#myCarousel" data-slide-to="1"></li>
-					      <li data-target="#myCarousel" data-slide-to="2"></li>
-					      <li data-target="#myCarousel" data-slide-to="3"></li>
+
 					    </ol>
 
 					    <!-- Wrapper for slides -->
 					    <div class="carousel-inner" role="listbox">
-
-					      <div class="item active">
-					        <img src="../images/paisajes/01.jpg" alt="Chania" width="460" height="345">
-					        <div class="carousel-caption">
-					          <h3>Chania</h3>
-					          <p>The atmosphere in Chania has a touch of Florence and Venice.</p>
-					        </div>
-					      </div>
+					    
+							<div class="item active">
+							      <img src="" alt="">
+							      <div class="carousel-caption">
+							        <h3></h3>
+							        <p></p>
+							      </div>
+							</div>
 					  
 					    </div>
 
@@ -202,7 +173,7 @@
 					      <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
 					      <span class="sr-only">Next</span>
 					    </a>
-					  </div>
+					</div>
 
 				</div>
 			</div>
@@ -265,6 +236,7 @@
 
 		var imagenCargada = null;
 		var imagenesCargadas = new Array();	
+		var active = false;
 
 		var nombreUsuario = $.getURLParam("nombreUsu");
 		if(nombreUsuario != null && nombreUsuario != ""){ 
@@ -332,28 +304,52 @@
 		}
 
 		function mostrarImagenesCargadas(){
-			$("#contenedorImagenes").html(null);
+
+			$(".carousel-inner").html(null);
+			$('.carousel-indicators').html(null);
+
 			if(imagenesCargadas.length > 0){
 				$("#sinImagenes").hide();
+				var indicator = "";
+				var item = "";
 				for(var i = 0; i < imagenesCargadas.length; i++){
 					var titulo = imagenesCargadas[i].titulo;
 					var imagen = imagenesCargadas[i].archivo;
 					var descripcion = imagenesCargadas[i].descripcion;
 
-					var item = 
-						"<div class='item'>" +
-					        "<img src='" + imagen + "'" + "alt='" + titulo + "'" + "width='500' height='350'>" + 
-					        "<div class='carousel-caption'>" +
-					        	"<h3>" + titulo + "</h3>" + 
-					        "	<p>" + descripcion + "</p>" +
-					        "</div>" +
-					    "</div>";
+					if(i == 0){
+						item = "<div class='item active'>" +
+						        "<img src='" + imagen + "'" + "alt='" + titulo + "'" + "width='500' height='350'>" + 
+						        "<div class='carousel-caption'>" +
+						        	"<h3>" + titulo + "</h3>" + 
+						        	"<p>" + descripcion + "</p>" +
+						        "</div>" +
+						    "</div>";
 
-					$('.carousel-inner').append(item);
+						indicator = "<li data-target='#myCarousel' data-slide-to='" + i + "'" + "class='active'></li>";
+
+					}else{
+
+						item = "<div class='item'>" +
+						        "<img src='" + imagen + "'" + "alt='" + titulo + "'" + "width='500' height='350'>" + 
+						        "<div class='carousel-caption'>" +
+						        	"<h3>" + titulo + "</h3>" + 
+						        	"<p>" + descripcion + "</p>" +
+						        "</div>" +
+						    "</div>";
+
+						indicator = "<li data-target='#myCarousel' data-slide-to='" + i + "'" + "></li>";
+
+					}
+
+					$('.carousel-indicators').append(indicator);
+					$('.carousel-inner').append(item);	
+					item = null;				
 
 				}
 			}else{
 				$("#sinImagenes").show();
+				$("#myCarousel").hide();
 			}
 		}	
 		
@@ -421,7 +417,7 @@
 			$("#archivoImagen").val(null);
 			$("#tituloImagen").val(null);
 			$("#descripcionImagen").val(null);
-			$("#miniatura").attr("src", null);
+			$("#miniatura").attr("src", "../images/upload.png");
 			$(":file").filestyle('clear');
 		}
  
