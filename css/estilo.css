@@ -19,11 +19,6 @@ footer span, footer strong{
 	margin: 5% 20% 5% 20%;
 }
 
-.input-group{
-	width: 60%;
-	margin-left: 20%;
-}
-
 .ingreso{
 	text-align: left;
 	padding: 5% 10% 5% 10%;
@@ -39,11 +34,6 @@ footer span, footer strong{
 	width: 30%;
 	height: 30%;
 	text-align: center;
-}
-
-.imagenBuscar{
-	margin-top: 5%;
-	width: 50%;
 }
 
 .navbar-header .imagen{

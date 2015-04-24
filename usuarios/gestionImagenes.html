@@ -3,26 +3,41 @@
 <head>
 	<title>Laboratorio 1 - RIA 2015</title>
 	<meta charset="utf-8">
+
+	<!--jQuery-->
+	<script type="text/javascript" src="../js/jquery-2.1.3.min.js"></script>
+
+	<!--jQuery Modal-->
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<link href="../css/jquery.modal.css" type="text/css" rel="stylesheet" />
 	<link href="../css/jquery.modal.theme-xenon.css" type="text/css" rel="stylesheet" />
 	<link href="../css/jquery.modal.theme-atlant.css" type="text/css" rel="stylesheet" />
-	<!--jQuery-->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
-	<script type="text/javascript" src="../js/jquery.modal.js"></script>    
+	<script type="text/javascript" src="../js/jquery.modal.js"></script> 
+
+	<!-- Nuestros estilos -->
+    <link rel="stylesheet" type="text/css" href="../css/estilo.css">
+    <script type="text/javascript" src="../js/data.js"></script>	
+
+	<!-- Shared assets -->
+    <link rel="stylesheet" type="text/css" href="../css/carouselStyle.css">
+	<!--Boostrap-->
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="../css/estilo.css">
-    <!-- Shared assets -->
-    <link rel="stylesheet" type="text/css" href="../css/carouselStyle.css">
 
-    <!-- Example assets -->
-    <link rel="stylesheet" type="text/css" href="../css/jcarousel.transitions.css">
-    <script type="text/javascript" src="../js/jquery.jcarousel.min.js"></script>
-    <script type="text/javascript" src="../js/modernizr.js"></script>
-    <script type="text/javascript" src="../js/jcarousel.transitions.js"></script>
-    <script type="text/javascript" src="../js/data.js"></script>    
+    <!-- Bootstrap FileStyle -->
+	<script type="text/javascript" src="../js/bootstrap-select.js"></script>
+	<script type="text/javascript" src="../js/bootstrap-filestyle.min.js"></script>
+	<script type="text/javascript" src="../js/bootbox.min.js"></script>
+	<link rel="stylesheet" href="../css/bootstrap-select.min.css">
+	<link rel="stylesheet" href="../css/style.css">
+	  <style>
+	  .carousel-inner > .item > img,
+	  .carousel-inner > .item > a > img {
+	      width: 70%;
+	      margin: auto;
+	  }
+	  </style>	
+        
 </head>
 <body>
 
@@ -74,18 +89,20 @@
 				<div class="panel-heading">
 					<h3 class="panel-title">Ingresar Imágen</h3>
 				</div>
-				<form id="formSubirImg">
 				<div class="panel-body ingreso">
-					<div class="img-thumbnail imagenMostrar input-group">
-						<img id="miniatura" src="" alt="Imágen" name="imagenUsuario">
+					<div class="img-thumbnail imagen input-group">
+						<img id="miniatura" src="../images/upload.png" alt="Imágen" name="imagenUsuario">
 					</div>
-					<div class="imagenBuscar input-group">
-						<input id="subirImg" type="file" class="btn btn-primary" value="Subir Imagen...">
+					<div class="imagenBuscar">
+						<input id="archivoImagen" type="file" class="filestyle" data-buttonName="btn-primary"
+						data-buttonText="Cargar Imagen ..." data-iconName="glyphicon-inbox" 
+						data-buttonBefore="true" value="Subir Imagen..."
+						onchange="cargarImagen(event);">
 					</div>
 					<br />
 					<div class="input-group">
 						<span class="input-group-addon" id="basic-addon1">Titulo: </span>
-						<input type="text" class="form-control"
+						<input id="tituloImagen" type="text" class="form-control"
 							placeholder="Ingrese el título de la imágen..."
 							aria-describedby="basic-addon1" name="tituloImagen">
 					</div>
@@ -93,21 +110,20 @@
 					<div class="input-group">
 						<span class="input-group-addon" id="basic-addon1">Descripción:
 						</span>
-						<textarea class="form-control"
+						<textarea id="descripcionImagen" class="form-control"
 							placeholder="Ingrese una descripción de la imágen..."
-							aria-describedby="basic-addon1" name="descImagen"></textarea>
+							aria-describedby="basic-addon1" name="descripcionImagen"></textarea>
 					</div>
 				</div>
-				</form>	
 				<div class="panel-footer">
-					<button id="btnSubirImg" type="submit" class="btn btn-primary">
+					<button id="btnSubirImg" type="button" class="btn btn-primary">
 					<span class="glyphicon glyphicon-picture"></span>&nbsp;&nbsp;Agregar Imágen</button>
 				</div>
 			</div>
 			
 		</div>
 
-		<div id="formVer">
+		<!--<div id="formVer">
 			<div class="panel panel-primary">
 				<div class="panel-heading">
 					<h3 class="panel-title">Ver Imágenes</h3>
@@ -121,8 +137,8 @@
 
 		            <div class="jcarousel-wrapper">
 		                <div class="jcarousel">
-		                    <ul>
-		                        <li style="background: url('../images/paisajes/01.jpg');"></li>
+		                    <ul id="listaImg">
+		                        <!--<li style="background: url('../images/paisajes/01.jpg');"></li>
 		                        <li style="background: url('../images/paisajes/02.jpg');"></li>
 		                        <li style="background: url('../images/paisajes/03.jpg');"></li>
 		                        <li style="background: url('../images/paisajes/04.jpg');"></li>
@@ -145,7 +161,52 @@
 				</div>
 
 			</div>
-		</div>		
+		</div>-->
+
+		<div id="formVer">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<h3 class="panel-title">Ver Imágenes</h3>
+				</div>
+				<div class="panel-body ingreso">
+					  <div id="myCarousel" class="carousel slide" data-ride="carousel">
+					    <!-- Indicators -->
+					    <ol class="carousel-indicators">
+					      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+					      <li data-target="#myCarousel" data-slide-to="1"></li>
+					      <li data-target="#myCarousel" data-slide-to="2"></li>
+					      <li data-target="#myCarousel" data-slide-to="3"></li>
+					    </ol>
+
+					    <!-- Wrapper for slides -->
+					    <div class="carousel-inner" role="listbox">
+
+					      <div class="item active">
+					        <img src="../images/paisajes/01.jpg" alt="Chania" width="460" height="345">
+					        <div class="carousel-caption">
+					          <h3>Chania</h3>
+					          <p>The atmosphere in Chania has a touch of Florence and Venice.</p>
+					        </div>
+					      </div>
+					  
+					    </div>
+
+					    <!-- Left and right controls -->
+					    <a class="left carousel-control" style="background: white" 
+					    	href="#myCarousel" role="button" data-slide="prev">
+					      <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+					      <span class="sr-only">Previous</span>
+					    </a>
+					    <a class="right carousel-control" style="background: white"
+					    	href="#myCarousel" role="button" data-slide="next">
+					      <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+					      <span class="sr-only">Next</span>
+					    </a>
+					  </div>
+
+				</div>
+			</div>
+		</div>				
 
 	</section>
 
@@ -160,7 +221,7 @@
 		</div>
 	</footer>	
 
-	<script type="text/javascript">
+	<script type="text/javascript">	
 
  		/* Copyright (c) 2006 Mathias Bank (http://www.mathias-bank.de)
  		* Dual licensed under the MIT (http://www.opensource.org/licenses/mit-license.php) 
@@ -202,8 +263,8 @@
 				}
 			});
 
-		$('#titulo').html(img_json[0]['imagenes'][0].titulo);				
-		$('#desc').html(img_json[0]['imagenes'][0].desc);		
+		var imagenCargada = null;
+		var imagenesCargadas = new Array();	
 
 		var nombreUsuario = $.getURLParam("nombreUsu");
 		if(nombreUsuario != null && nombreUsuario != ""){ 
@@ -215,15 +276,44 @@
 
 		$("#formVer").hide();
 
-		function mostrarImagen(input) {
+		function mostrarImagen2(input) {
  			if (input.files && input.files[0]) {
   				var reader = new FileReader();
   				reader.onload = function (e) {
    					$('#miniatura').attr('src', e.target.result);
+   					imagenCargada = e.target.result;
   				}
   				reader.readAsDataURL(input.files[0]);
  			}
 		}
+
+		function mostrarImagen(titulo, imagen, descripcion){
+			bootbox.dialog({
+			  message: "<div><img src='" + imagen + "' class='imagenDetalle'/><h4>" + descripcion + "</h4></div>",
+			  title: titulo,
+			  buttons: {
+		    	aceptar: {
+		    		label: "Cerrar",
+		      		className: "btn-primary",
+		      		callback: function() {}
+		    	}
+			  }
+			});
+		}		
+
+		function cargarImagen(event) {
+			var files = event.target.files;
+			var reader = new FileReader();
+			var miniatura = document.getElementById("miniatura");
+			for (var i = 0, file; file = files[i]; i++) {
+				miniatura.title = file.name;
+				reader.onload = function(event) {
+					miniatura.src = event.target.result;
+					imagenCargada = event.target.result;
+				};
+				reader.readAsDataURL(file);
+			}
+		}	
 
 		function mostrarFuncionalidad(funcionalidad) {
 			if (funcionalidad == "INGRESAR") {
@@ -236,36 +326,111 @@
 				$("#formVer").show();
 				$("#linkIngresar").attr("class", "");
 				$("#linkVer").attr("class", "active");
+				mostrarImagenesCargadas();
 			}
 
 		}
+
+		function mostrarImagenesCargadas(){
+			$("#contenedorImagenes").html(null);
+			if(imagenesCargadas.length > 0){
+				$("#sinImagenes").hide();
+				for(var i = 0; i < imagenesCargadas.length; i++){
+					var titulo = imagenesCargadas[i].titulo;
+					var imagen = imagenesCargadas[i].archivo;
+					var descripcion = imagenesCargadas[i].descripcion;
+
+					var item = 
+						"<div class='item'>" +
+					        "<img src='" + imagen + "'" + "alt='" + titulo + "'" + "width='500' height='350'>" + 
+					        "<div class='carousel-caption'>" +
+					        	"<h3>" + titulo + "</h3>" + 
+					        "	<p>" + descripcion + "</p>" +
+					        "</div>" +
+					    "</div>";
+
+					$('.carousel-inner').append(item);
+
+				}
+			}else{
+				$("#sinImagenes").show();
+			}
+		}	
+		
+		function mostrarConfirmacion(titulo, mensaje, funcionAceptar){
+			bootbox.dialog({
+			  message: mensaje,
+			  title: titulo,
+			  buttons: {
+			  	cancelar: {
+				  label: "Cancelar",
+			      className: "btn-primary",
+			      callback: function() {}
+		    	},
+		    	aceptar: {
+		    		label: "Aceptar",
+		      		className: "btn-primary",
+		      		callback: function() {
+		        		funcionAceptar();
+		      		}
+		    	}
+			  }
+			});
+		}
+
+		function mostrarError(mensaje){
+			bootbox.dialog({
+			  message: mensaje,
+			  title: "Error!",
+			  buttons: {
+		    	aceptar: {
+		    		label: "Cerrar",
+		      		className: "btn-primary",
+		      		callback: function() {}
+		    	}
+			  }
+			});
+		}
+
+		function guardarImagen(){
+			var tituloImagen = $("#tituloImagen").val();
+			var descripcionImagen = $("#descripcionImagen").val();
+			if(imagenCargada != null && imagenCargada != "" && imagenCargada != undefined){
+				if(tituloImagen != null && tituloImagen != "" && tituloImagen != undefined){
+					if(descripcionImagen != null && descripcionImagen != "" && descripcionImagen != undefined){
+						mostrarConfirmacion("Confirmación", "Esta seguro que desea guardar la imagen?", function (){
+							var imagen = new Object();
+							imagen.archivo = imagenCargada;
+							imagen.titulo = tituloImagen;
+							imagen.descripcion = descripcionImagen;
+							imagenesCargadas[imagenesCargadas.length] = imagen;
+							limpiarCampos();
+						});
+					}else{
+						mostrarError("Debe ingresar una descripción!");
+					}
+				}else{
+					mostrarError("Debe ingresar un titulo!");
+				}
+			}else{
+				mostrarError("Debe seleccionar una imagen!");
+			}		
+		}
+
+		function limpiarCampos(){
+			$("#archivoImagen").val(null);
+			$("#tituloImagen").val(null);
+			$("#descripcionImagen").val(null);
+			$("#miniatura").attr("src", null);
+			$(":file").filestyle('clear');
+		}
  
-		$("#subirImg").change(function(){
- 			mostrarImagen(this);
-		});
+		/*$("#archivoImagen").change(function(){
+ 			cargarImagen(event);
+		});*/
 
 		$("#btnSubirImg").click(function(){
-			modal({
-				type: 'confirm',
-				title: 'Confirmacion de subida',
-				text: 'Esta seguro que desea subir esta imagen?',
-				callback: function(result) {
-					if(result){
-
-						var url = "gestionImagenes.html"; // El script a dónde se realizará la petición.
-		    			$.ajax({
-		           			type: "POST",
-		           			url: url,
-		           			data: $("#formSubirImg").serialize(), // Adjuntar los campos del formulario enviado.
-		           			success: function(data){
-		               			$("#respuesta").html(data);
-		           			}
-		         		});
-		 
-		    			return true; // Evitar ejecutar el submit del formulario.
-		 			}
-				}
-			});
+			guardarImagen();
  		});	
 
  		function aleatorio(inferior,superior){
@@ -274,16 +439,6 @@
     		aleat = Math.round(aleat);
     		return parseInt(inferior) + aleat;
 		}; 
-
-		$("#next").click(function(){
-
-			var i = aleatorio(0, 4);
-
-			$('#titulo').html(img_json[0]['imagenes'][i].titulo);				
-			$('#desc').html(img_json[0]['imagenes'][i].desc);
-			
- 			
-		});
 
 
 	</script>
