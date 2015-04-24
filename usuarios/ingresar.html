@@ -143,7 +143,12 @@
 				$("#imagenDeMuestra_titulo_" + i).html(titulo);
 				$("#imagenDeMuestra_archivo_" + i).attr("src", imagen);
 				$("#imagenDeMuestra_descripcion_" + i).html(descripcion);				
-				document.getElementById("imagenDeMuestra_" + i).onclick = function(){mostrarImagen(titulo, imagen, descripcion)};
+				//document.getElementById("imagenDeMuestra_" + i).onclick = function(){mostrarImagen(titulo, imagen, descripcion)};
+				var obj = $("#imagenDeMuestra_"+i);
+				obj.on("click", {titulo : titulo, imagen : imagen, descripcion: descripcion}, function(event) {
+					mostrarImagen(event.data.titulo,event.data.imagen,event.data.descripcion);
+				});
+				
 			}
 		}else{
 			$("#sinImagenes").show();
