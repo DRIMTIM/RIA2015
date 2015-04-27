@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<body>
+	<header>
+		<nav class="navbar navbar-default navbar-fixed-top">
+			<div class="container">
+				<h4>
+					<span class="label label-default">
+						Bienvenido
+					</span>
+				</h4>
+			</div>
+		</nav>
+		<br /><br /><br />
+		<h1>
+			Laboratorio 1<small> de </small>RIA
+		</h1>
+	</header>
+	<section class="form">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">Login RIA LAB</h3>
+			</div>
+			<div class="panel-body login">
+				<div class="panel panel-info">
+					<div class="panel-heading">
+						<h3 class="panel-title">Aviso</h3>
+					</div>
+					<div class="panel-body">
+						El usuario debe tener entre <b id="minLargoNombre"></b> y <b id="maxLargoNombre"></b> carácteres de largo.
+					</div>
+				</div>
+				<br>
+				<div class="input-group">
+					<span class="input-group-addon" id="basic-addon2">Nombre de Usuario: </span>
+					<input type="text" class="form-control"
+						placeholder="Nombre de Usuario" aria-describedby="basic-addon2"
+						onkeyup="verificarDatos(this);" id="nombreUsuario">
+				</div>
+			</div>
+			<div class="panel-footer">
+				<button id="botonLogin" 
+						disabled="disabled" 
+						type="button" 
+						class="btn btn-primary" onclick="submit();">Iniciar</button>
+			</div>
+		</div>
+	</section>
+	<footer class="footer">
+		<div class="navbar navbar-inverse navbar-fixed-bottom"
+			role="navigation">
+			<br>LABORATORIO DE APLICACIONES DE INTERNET RICAS
+		</div>
+	</footer>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$("#minLargoNombre").html(INIT_PARAMETERS.MIN_LARGO_NOMBRE);
+			$("#maxLargoNombre").html(INIT_PARAMETERS.MAX_LARGO_NOMBRE);
+			$("#nombreUsuario").attr("maxlength", INIT_PARAMETERS.MAX_LARGO_NOMBRE);
+		});
+		function submit(){
+			var ingresar = new _FUNCIONALIDAD.INGRESAR;
+			ingresar.datos = {nombreUsuario : $("#nombreUsuario").val()};
+			_ROUTER.routeTo(ingresar);
+		}
+	</script>
+</body>
+</html>

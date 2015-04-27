@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<body style="padding: 0; margin: 0; font-family:Arial, Verdana;background-color:#fff;">
+	<header>
+		<nav class="navbar navbar-default navbar-fixed-top">
+			<div class="container">
+				<h4>
+					<span id="nombreUsuario" class="label label-default">Nombre de Usuario</span>
+				</h4>
+			</div>
+		</nav>
+		<br /> <br /> <br />
+		<h1>
+			Laboratorio 1<small> de </small>RIA
+		</h1>
+	</header>
+	<section class="form">
+		<ul class="nav nav-tabs">
+			<li id="ingresarLink" role="presentation"><a href="#">Ingresar</a></li>
+			<li id="verListaLink" role="presentation"><a href="#">Ver Lista</a></li>
+			<li role="presentation" class="active"><a href="#">Ver Galeria</a></li>
+		</ul>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">Ver Imágenes</h3>
+			</div>
+			<div class="panel-body ingreso">
+				<div class="row-fluid">
+					<div id="contenedorImagenes" hidden="hidden"></div>
+					<div id="SLIDER_imagenMuestra_" hidden="hidden">
+		                <img data-u="image" src="images/alila/01.jpg" />
+		                <img data-u="thumb" src="images/alila/thumb-01.jpg" />
+		            </div>
+					<div id="sinImagenes" hidden="hidden" class="panel panel-info">
+						<div class="panel-heading">
+							<h3 class="panel-title">Aviso</h3>
+						</div>
+						<div class="panel-body">
+							No hay imagenes cargadas para mostrar.
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="botonCambio" class="panel-footer">
+				<button type="button" 
+						class="btn btn-primary" 
+						onclick="cambiarHorientacionGaleria();">Cambiar Horientación</button>
+			</div>
+		</div>
+	</section>
+	<footer class="footer">
+		<div class="navbar navbar-inverse navbar-fixed-bottom" role="navigation">
+			<br>LABORATORIO DE APLICACIONES DE INTERNET RICAS
+		</div>
+	</footer>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$("#contenedorImagenes").html(null);
+			if(_ROUTER.FUNCIONALIDAD_ACTUAL.datos.galeria === undefined || 
+					(!(_ROUTER.FUNCIONALIDAD_ACTUAL.datos.galeria === undefined) && 
+							_ROUTER.FUNCIONALIDAD_ACTUAL.datos.galeria === _GALERIA.HORIZONTAL)){
+				$("#contenedorImagenes").load(_GALERIA.HORIZONTAL.url);
+			}else{
+				$("#contenedorImagenes").load(_GALERIA.VERTICAL.url);
+			}
+			$("#verListaLink").click(function(){
+				_ROUTER.routeToWithImages(new _FUNCIONALIDAD.VER_LISTA(), _ROUTER.FUNCIONALIDAD_ACTUAL.datos.imagenesCargadas);
+			});
+			$("#ingresarLink").click(function(){
+				_ROUTER.routeToWithImages(new _FUNCIONALIDAD.INGRESAR(), _ROUTER.FUNCIONALIDAD_ACTUAL.datos.imagenesCargadas);
+			});
+			mostrarGaleria();
+			setNombreUsuario();
+		});
+	</script>
+</body>
+</html>

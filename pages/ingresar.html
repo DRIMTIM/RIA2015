@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<body>
+	<header>
+		<nav class="navbar navbar-default navbar-fixed-top">
+			<div class="container">
+				<h4>
+					<span id="nombreUsuario" class="label label-default">Nombre de Usuario</span>
+				</h4>
+			</div>
+		</nav>
+		<br /> <br /> <br />
+		<h1>
+			Laboratorio 1<small> de </small>RIA
+		</h1>
+	</header>
+	<section class="form">
+		<ul class="nav nav-tabs">
+			<li role="presentation" class="active"><a href="#">Ingresar</a></li>
+			<li id="verListaLink" role="presentation"><a href="#">Ver Lista</a></li>
+			<li id="verGaleriaLink" role="presentation"><a href="#">Ver Galeria</a></li>
+		</ul>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">Ingresar Imágen</h3>
+			</div>
+			<div class="panel-body ingreso">
+				<div class="img-thumbnail imagen">
+					<img id="miniatura" src="" alt="Imágen" name="imagenUsuario">
+				</div>
+				<div class="imagenBuscar">
+					<input id="archivoImagen" type="file" class="filestyle">
+				</div>
+				<br />
+				<div class="input-group">
+					<span class="input-group-addon" id="basic-addon1">Titulo: </span>
+					<input id="tituloImagen" type="text" class="form-control"
+						placeholder="Ingrese el título de la imágen..."
+						aria-describedby="basic-addon1" name="tituloImagen">
+				</div>
+				<br />
+				<div class="input-group">
+					<span class="input-group-addon" id="basic-addon1">Descripción:
+					</span>
+					<textarea id="descripcionImagen" class="form-control"
+						placeholder="Ingrese una descripción de la imágen..."
+						aria-describedby="basic-addon1" name="descripcionImagen"></textarea>
+				</div>
+			</div>
+			<div class="panel-footer">
+				<button id="botonLogin" type="button" class="btn btn-primary">Agregar Imágen</button>
+			</div>
+		</div>
+	</section>
+	<footer class="footer">
+		<div class="navbar navbar-inverse navbar-fixed-bottom" role="navigation">
+			<br>LABORATORIO DE APLICACIONES DE INTERNET RICAS
+		</div>
+	</footer>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			var imagenCargada = null;
+			var imagenesCargadas = new Array();
+			//FileStyle
+			$(":file").filestyle({
+				buttonName:"btn-primary",
+				buttonText:"Cargar Imagen ...",
+				iconName:"glyphicon-inbox",
+				buttonBefore:"true"
+			});
+			function cargarImagen(event) {
+				var files = event.target.files;
+				var reader = new FileReader();
+				var miniatura = document.getElementById("miniatura");
+				for (var i = 0, file; file = files[i]; i++) {
+					miniatura.title = file.name;
+					reader.onload = function(event) {
+						miniatura.src = event.target.result;
+						imagenCargada = event.target.result;
+					};
+					reader.readAsDataURL(file);
+				}
+			};
+			function guardarImagen(){
+				var tituloImagen = $("#tituloImagen").val();
+				var descripcionImagen = $("#descripcionImagen").val();
+				if(imagenCargada != null && imagenCargada != "" && imagenCargada != undefined){
+					if(tituloImagen != null && tituloImagen != "" && tituloImagen != undefined){
+						if(descripcionImagen != null && descripcionImagen != "" && descripcionImagen != undefined){
+							mostrarConfirmacion("Confirmación", "Esta seguro que desea guardar la imagen?", function (){
+								var imagen = new Object();
+								imagen.id = imagenesCargadas.length;
+								imagen.archivo = imagenCargada;
+								imagen.titulo = tituloImagen;
+								imagen.descripcion = descripcionImagen;
+								imagenesCargadas.push(imagen);
+								limpiarCampos();
+							});
+						}else{
+							mostrarError("Debe ingresar una descripción!");
+						}
+					}else{
+						mostrarError("Debe ingresar un titulo!");
+					}
+				}else{
+					mostrarError("Debe seleccionar una imagen!");
+				}		
+			};
+			function limpiarCampos(){
+				$("#archivoImagen").val(null);
+				$("#tituloImagen").val(null);
+				$("#descripcionImagen").val(null);
+				$("#miniatura").attr("src", null);
+				$(":file").filestyle('clear');
+			};
+			$("#verListaLink").click(function(){_ROUTER.routeToWithImages(new _FUNCIONALIDAD.VER_LISTA(), imagenesCargadas);});
+			$("#verGaleriaLink").click(function(){_ROUTER.routeToWithImages(new _FUNCIONALIDAD.VER_GALERIA(), imagenesCargadas);});
+			$("#botonLogin").click(function(){guardarImagen();});
+			$("#archivoImagen").change(function(event){cargarImagen(event);});
+			setNombreUsuario();
+		});
+	</script>
+</body>
+</html>
