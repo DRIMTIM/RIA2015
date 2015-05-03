@@ -42,6 +42,8 @@
 		var imagenesCargadas = new Array();	
 		var active = false;
 
+   		$('[data-toggle="tooltip"]').tooltip();
+
 		var nombreUsuario = $.getURLParam("nombreUsu");
 		if(nombreUsuario != null && nombreUsuario != ""){ 
 			var aux = '&nbsp;' + nombreUsuario.replace(/\+/g, " ");
@@ -79,7 +81,8 @@
 
 		function mostrarImagen3(titulo, imagen, descripcion){
 			modal({
-				type: 'inverted', //Type of Modal Box (alert | confirm | prompt | success | warning | error | info | inverted | primary)
+				type: 'inverted', //Type of Modal Box (alert | confirm | prompt | success | warning | error | info 
+					//| inverted | primary)
 				title: titulo, //Modal Title
 				text: "<div><img src='" + imagen + "' class='img-thumbnail' width='900' height='750'/><h4>" 
 												+ descripcion + "</h4></div>", //Modal HTML Content
@@ -88,7 +91,10 @@
 					text: 'Aceptar', //Button Text
 					val: 'ok', //Button Value
 					eKey: true, //Enter Keypress
-					addClass: 'btn-light-blue', //Button Classes (btn-large | btn-small | btn-green | btn-light-green | btn-purple | btn-orange | btn-pink | btn-turquoise | btn-blue | btn-light-blue | btn-light-red | btn-red | btn-yellow | btn-white | btn-black | btn-rounded | btn-circle | btn-square | btn-disabled)
+					addClass: 'btn-light-blue', //Button Classes (btn-large | btn-small | btn-green | btn-light-green 
+					//| btn-purple | btn-orange | btn-pink | btn-turquoise | btn-blue | btn-light-blue | btn-light-red 
+					//| btn-red | btn-yellow | btn-white | btn-black | btn-rounded | btn-circle | btn-square | btn-disabled)
+
 					onClick: function(argument) {
 						console.log(argument);
 						testing();
@@ -143,13 +149,40 @@
 				$("#formVer").hide();
 				$("#linkIngresar").attr("class", "active");
 				$("#linkVer").attr("class", "");
+				$("#vistaBtns").hide();
 			} else {
 				$("#formIngresar").hide();
 				$("#formVer").show();
+				$("#vistaBtns").show();
 				$("#linkIngresar").attr("class", "");
 				$("#linkVer").attr("class", "active");
 				mostrarImagenesCargadas();
 			}
+
+		}
+
+		function cargarItemListaImagenes(indice, titulo, imagen, descripcion){
+
+			var lista = "";
+			itemLista = "<li id='itemList_" + indice + "' class='list-group-item' >" +
+								"<div class='panel-group' >" +
+									"<div id='itemListImg_" + indice + "' style='display: inline;'>" + 	
+										"<img id='itemImg_" + indice + "'" +
+										"src='" + imagen + "' class='img-thumbnail imagen' >" +
+									"</div>" +
+									"<div id='itemListData_" + indice + "' style='display: inline;'>" + 
+										"<h3 style='display: inline;'> " + titulo + " </h3>" +
+										"<p style='display: inline;'> { " + descripcion + " } </p>" +
+									"</div>" +
+								"</div>" +		
+							"</li>";
+
+			$('#listaImagenes').append(itemLista);			
+
+			var obj = $("#itemImg_" + indice);
+			obj.on("click", {titulo : titulo, imagen : imagen, descripcion: descripcion}, function(event) {
+				mostrarImagen3(event.data.titulo,event.data.imagen,event.data.descripcion);
+			});
 
 		}
 
@@ -158,11 +191,13 @@
 			$("#myCarousel").show();
 			$(".carousel-inner").html(null);
 			$('.carousel-indicators').html(null);
+			$('#listaImagenes').html(null);
 
 			if(imagenesCargadas.length > 0){
 				$("#sinImagenes").hide();
 				var indicator = "";
 				var item = "";
+
 				for(var i = 0; i < imagenesCargadas.length; i++){
 					var titulo = imagenesCargadas[i].titulo;
 					var imagen = imagenesCargadas[i].archivo;
@@ -170,7 +205,8 @@
 
 					if(i == 0){
 						item = "<div class='item active'>" +
-						        "<img id='item_" + i + "'" + "class='img-rounded img-thumbnail' src='" + imagen + "'" + "alt='" + titulo + "'" 
+						        "<img id='item_" + i + "'" + "class='img-rounded img-thumbnail' src='" + imagen 
+						        + "'" + "alt='" + titulo + "'" 
 						        + "width='500' height='350'>" + "<div class='carousel-caption'>" +
 						        	"<h3>" + titulo + "</h3>" + 
 						        	"<p>" + descripcion + "</p>" +
@@ -182,7 +218,8 @@
 					}else{
 
 						item = "<div class='item'>" +
-						        "<img id='item_" + i + "'" + "class='img-rounded img-thumbnail' src='" + imagen + "'" + "alt='" + titulo + "'" 
+						        "<img id='item_" + i + "'" + "class='img-rounded img-thumbnail' src='" + imagen + "'" 
+						        + "alt='" + titulo + "'" 
 						        + "width='500' height='350'>" + "<div class='carousel-caption'>" +
 						        	"<h3>" + titulo + "</h3>" + 
 						        	"<p>" + descripcion + "</p>" +
@@ -191,15 +228,12 @@
 
 						indicator = "<li data-target='#myCarousel' data-slide-to='" + i + "'" + "></li>";
 
-					}					
+					}		
+
+					cargarItemListaImagenes(i, titulo, imagen, descripcion);
 
 					$('.carousel-indicators').append(indicator);
-					$('.carousel-inner').append(item);	
-
-					var obj = $("#item_" + i);
-					obj.on("click", {titulo : titulo, imagen : imagen, descripcion: descripcion}, function(event) {
-						mostrarImagen3(event.data.titulo,event.data.imagen,event.data.descripcion);
-					});
+					$('.carousel-inner').append(item);
 
 					item = null;				
 
@@ -292,3 +326,18 @@
     		aleat = Math.round(aleat);
     		return parseInt(inferior) + aleat;
 		};
+
+
+		$('#listaView').click(function(){
+
+			$("#myCarousel").hide();
+			$("#listaImgs").show();
+
+		});
+
+		$('#carouselView').click(function(){
+
+			$("#myCarousel").show();
+			$("#listaImgs").hide();
+
+		});		

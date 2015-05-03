@@ -143,11 +143,15 @@
 						</div>
 					</div>
 
-					<div class="btn-group input-group" style="display: none;" >
-					  <button type="button" class="btn btn-primary col-sm-6 input-sm">Lista</button>
-					  <button type="button" class="btn btn-primary col-sm-6 input-sm">Carousel </button>
+					<div id="vistaBtns" style="display: none;" class="btn-group">
+					  <button id="listaView" type="button" class="btn btn-success" 
+					  			data-toggle="tooltip" title="Ver lista">
+					  <span class="glyphicon glyphicon-list-alt" ></span></button>
+					  <button id="carouselView" type="button" class="btn btn-success" 
+					  			data-toggle="tooltip" title="Ver Carousel">
+					  <span class="glyphicon glyphicon-picture"></span></button>
 					</div>					
-					<br/>
+					<br/><br/>
 
 					<div id="myCarousel" class="carousel slide" data-ride="carousel">
 					    <!-- Indicators -->
@@ -180,6 +184,21 @@
 					      <span class="sr-only">Next</span>
 					    </a>
 					</div>
+
+					<div id="listaImgs" class="panel panel-info" hidden="hidden">
+
+						<div class="panel panel-heading" >
+							<strong>Lista de Imagenes para seleccionar...</strong>
+						</div>
+						<div class="panel-body">
+							<ul id="listaImagenes" class="list-group" >
+								<li id="itemList_" class="list-group-item" >
+											
+								</li>
+							</ul>
+						</div>
+							
+					</div>					
 
 				</div>
 			</div>
