@@ -150,10 +150,13 @@
 				$("#linkIngresar").attr("class", "active");
 				$("#linkVer").attr("class", "");
 				$("#vistaBtns").hide();
+				$('#listaImgs').hide();
 			} else {
 				$("#formIngresar").hide();
 				$("#formVer").show();
-				$("#vistaBtns").show();
+				if(imagenesCargadas.length > 0){
+					$("#vistaBtns").show();	
+				}
 				$("#linkIngresar").attr("class", "");
 				$("#linkVer").attr("class", "active");
 				mostrarImagenesCargadas();
