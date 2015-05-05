@@ -14,14 +14,25 @@ footer span, footer strong{
 	color: #FFFFFF;
 }
 
-.loginSection, .main{
+.loginSection{
 	width: 50%;
 	margin: 5% 25% 5% 25%;
 }
 
+#loginForm{
+	width: 80%;
+	margin: 5% 10% 5% 10%;		
+}
+
+.main{
+	width: 60%;
+	margin: 5% 20% 5% 20%;
+}
+
 .ingreso{
+	width: 100%;
 	text-align: left;
-	padding: 5% 10% 5% 10%;
+
 }
 
 .imagen{
