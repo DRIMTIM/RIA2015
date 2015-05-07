@@ -41,6 +41,9 @@ var _ROUTER = {
 	routeToWithImages : function(funcionalidad, imagenesCargadas){
 		_ROUTER.WAIT();
 		var datos = this.FUNCIONALIDAD_ACTUAL.datos;
+		if(datos === undefined){
+			datos = new Object();
+		}
 		if(datos.imagenesCargadas === undefined){
 			datos.imagenesCargadas = imagenesCargadas;
 		}else{
@@ -50,7 +53,11 @@ var _ROUTER = {
 				}
 			}					
 		}
-		funcionalidad.datos = datos;
+		if(funcionalidad.datos !== undefined){
+			funcionalidad.datos.imagenesCargadas = datos.imagenesCargadas;
+		}else{
+			funcionalidad.datos = datos;
+		}
 		this.routeTo(funcionalidad);
 	}
 };

@@ -13,16 +13,16 @@
 		</nav>
 		<br /><br /><br />
 		<h1>
-			Laboratorio 1<small> de </small>RIA
+			Laboratorio<small> de </small>RIA
 		</h1>
 	</header>
 	<section class="form">
-		<div class="panel panel-default">
+		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<h3 class="panel-title">Login RIA LAB</h3>
 			</div>
 			<div class="panel-body login">
-				<div class="panel panel-info">
+				<div class="panel panel-success">
 					<div class="panel-heading">
 						<h3 class="panel-title">Aviso</h3>
 					</div>
@@ -48,8 +48,9 @@
 	</section>
 	<footer class="footer">
 		<div class="navbar navbar-inverse navbar-fixed-bottom"
-			role="navigation">
-			<br>LABORATORIO DE APLICACIONES DE INTERNET RICAS
+			role="navigation" onclick="cargarDatosDePrueba();" style="cursor: pointer;padding: 1em;">
+			LABORATORIO DE APLICACIONES DE INTERNET RICAS<br>
+			<small>HAZ CLICK AQUI PARA CARGAR LOS DATOS DE PRUEBA</small>
 		</div>
 	</footer>
 	<script type="text/javascript">
@@ -61,7 +62,13 @@
 		function submit(){
 			var ingresar = new _FUNCIONALIDAD.INGRESAR;
 			ingresar.datos = {nombreUsuario : $("#nombreUsuario").val()};
-			_ROUTER.routeTo(ingresar);
+			if(_ROUTER.FUNCIONALIDAD_ACTUAL !== undefined && 
+					_ROUTER.FUNCIONALIDAD_ACTUAL.datos !== undefined &&
+					_ROUTER.FUNCIONALIDAD_ACTUAL.datos.imagenesCargadas !== undefined){
+				_ROUTER.routeToWithImages(ingresar, _ROUTER.FUNCIONALIDAD_ACTUAL.datos.imagenesCargadas);
+			}else{
+				_ROUTER.routeTo(ingresar);
+			}			
 		}
 	</script>
 </body>

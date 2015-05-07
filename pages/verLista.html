@@ -5,13 +5,13 @@
 		<nav class="navbar navbar-default navbar-fixed-top">
 			<div class="container">
 				<h4>
-					<span id="nombreUsuario" class="label label-default">Nombre de Usuario</span>
+					<span id="nombreUsuario" onclick="cerrarSesion();" style="cursor: pointer;" class="label label-default">Nombre de Usuario</span>
 				</h4>
 			</div>
 		</nav>
 		<br /> <br /> <br />
 		<h1>
-			Laboratorio 1<small> de </small>RIA
+			Laboratorio<small> de </small>RIA
 		</h1>
 	</header>
 	<section class="form">
@@ -20,7 +20,7 @@
 			<li role="presentation" class="active"><a href="#">Ver Lista</a></li>
 			<li id="verGaleriaLink" role="presentation"><a href="#">Ver Galeria</a></li>
 		</ul>
-		<div class="panel panel-default">
+		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<h3 class="panel-title">Ver Imágenes</h3>
 			</div>
@@ -39,7 +39,7 @@
 							</div>
 						</li>
 					</ul>
-					<div id="sinImagenes" hidden="hidden" class="panel panel-info">
+					<div id="sinImagenes" hidden="hidden" class="panel panel-success">
 						<div class="panel-heading">
 							<h3 class="panel-title">Aviso</h3>
 						</div>

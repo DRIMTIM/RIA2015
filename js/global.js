@@ -73,6 +73,19 @@ function mostrarError(mensaje){
 	  }
 	});
 };
+function mostrarMensaje(titulo, mensaje){
+	bootbox.dialog({
+	  message: mensaje,
+	  title: titulo,
+	  buttons: {
+    	aceptar: {
+    		label: "Aceptar",
+      		className: "btn-primary",
+      		callback: function() {}
+    	}
+	  }
+	});
+};
 function mostrarLista(){
 	var imagenesCargadas = _ROUTER.FUNCIONALIDAD_ACTUAL.datos.imagenesCargadas;
 	if(!(imagenesCargadas === undefined) && imagenesCargadas.length > 0){
@@ -146,6 +159,25 @@ function setNombreUsuario(){
 	if(!(_ROUTER.FUNCIONALIDAD_ACTUAL === undefined) &&
 			!(_ROUTER.FUNCIONALIDAD_ACTUAL.equals(_FUNCIONALIDAD.INDEX()))){
 		var nombreUsuario = _ROUTER.FUNCIONALIDAD_ACTUAL.datos.nombreUsuario;
-		$("#nombreUsuario").html("Bienvenido " + nombreUsuario);
+		$("#nombreUsuario").html("Hola! " + nombreUsuario + ", para cerrar sesión haz click aquí");
 	}
+};
+function cerrarSesion(){
+	window.location = "/RIA_LAB";
+	window.focus();
+};
+function cargarDatosDePrueba(){
+	mostrarConfirmacion("Confirmación", "Desea cargar los datos de prueba?", function(){
+		var imagenesPrueba = new Array();
+		for(var i = 0; i < _DATOS_PRUEBA.length; i++){
+			imagenesPrueba.push(_DATOS_PRUEBA[i]);
+		}
+		if(_ROUTER.FUNCIONALIDAD_ACTUAL.datos === undefined){
+			_ROUTER.FUNCIONALIDAD_ACTUAL.datos = new Object();
+		}
+		if(_ROUTER.FUNCIONALIDAD_ACTUAL.datos.imagenesCargadas === undefined){
+			_ROUTER.FUNCIONALIDAD_ACTUAL.datos.imagenesCargadas = new Array();
+		}
+		_ROUTER.FUNCIONALIDAD_ACTUAL.datos.imagenesCargadas = imagenesPrueba;
+	});
 };
